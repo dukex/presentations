@@ -1,0 +1,70 @@
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #F7F7F7;
+  color: #222;
+  background-color: #f7f7f7;
+  font-size: 100%;
+}
+
+@media print {
+  .reveal section > h1,
+  .reveal section > h3 {
+    margin-top: 20% !important;
+  }
+
+  .reveal aside.notes{
+    display: block;
+    border: 1px solid #E6FC86;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background: #F2FEBC;
+
+    font-size: 1.5em;
+    line-height: 1.5;
+    padding: 15px;
+  }
+
+}
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  margin: 0 0 20px 0;
+  line-height: 0.9em;
+  letter-spacing: 0.02em;
+  text-shadow: none;
+}
+
+.reveal h1 {
+  color: #ED245D;
+  font-size: 9em;
+  font-weight: 700;
+}
+
+.reveal h2{
+  line-height: 1.2;
+  font-weight: 200;
+}
+
+.reveal h3{
+  font-size: 6em;
+  line-height: 1.2;
+  margin: 0;
+  padding-bottom: 15px;
+  display: block;
+  font-weight: 700;
+}
+
+.reveal blockquote{
+  margin: 0 auto;
+  border: none;
+  border-left: 18px solid #ED245D;
+  padding: 0 0 0 30px;
+  font-style: italic;
+  background: none;
+  text-align: left;
+  box-shadow: none;
+}
