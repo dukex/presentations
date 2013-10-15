@@ -7,6 +7,9 @@ var Mustache  = require('mustache');
 var app       = express.createServer();
 var staticDir = express.static;
 
+app.use(express.cookieParser());
+app.use(express.session({secret: 'mysecretXXX'}));
+
 io            = io.listen(app);
 
 var opts = {
@@ -24,25 +27,27 @@ io.sockets.on('connection', function(socket) {
 });
 
 app.configure(function() {
-	[ 'css', 'js', 'images', 'plugin', 'lib' ].forEach(function(dir) {
+	[ 'css', 'js', 'images', 'plugin', 'lib', 'videos' ].forEach(function(dir) {
 		app.use('/' + dir, staticDir(opts.baseDir + dir));
 	});
 });
 
-app.get("/", function(req, res) {
-	res.writeHead(200, {'Content-Type': 'text/html'});
-	fs.createReadStream(opts.baseDir + '/index.html').pipe(res);
-});
 
 app.get("/notes/:socketId", function(req, res) {
-
 	fs.readFile(opts.baseDir + 'plugin/notes-server/notes.html', function(err, data) {
 		res.send(Mustache.to_html(data.toString(), {
-			socketId : req.params.socketId
+			socketId : req.params.socketId,
+      presentation_uri: req.session.presentation_uri
 		}));
 	});
-	// fs.createReadStream(opts.baseDir + 'notes-server/notes.html').pipe(res);
 });
+
+app.get("/:presentation_uri", function(req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+  req.session.presentation_uri = req.params.presentation_uri;
+	fs.createReadStream(opts.baseDir + '/' + req.params.presentation_uri).pipe(res);
+});
+
 
 // Actually listen
 app.listen(opts.port || null);
