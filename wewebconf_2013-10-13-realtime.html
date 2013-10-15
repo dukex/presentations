@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="css/reveal.min.css">
     <link rel="stylesheet" href="css/theme/duke.css" id="theme">
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/github.css">
     <script>
       document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
     </script>
@@ -24,12 +24,250 @@
         <section>
         <h1>Realtime</h1>
         <h2>Usando o Meteor para criar aplicações reativas</h2>
+        <aside class="notes">
+        Olá! Notas, como está, irá ajudar a entender melhor a aprensentação
+        </aside>
+        </section>
+
+
+
+        <section class="author" data-background="#007777">
+        <h3> Duke </h3>
+        <ul>
+          <li><a href="http://vertigem.xxx">vertigem.xxx</a></li>
+          <li><a href="http://github.com/dukex">github.com/dukex</a></li>
+          <li><a href="mailto:duke@riseup.net">duke@riseup.net</a></li>
+        </ul>
+        <aside class="notes">
+        Onde me encontrar. Qualquer coisa, mande um email ;)
+        </aside>
+        </section>
+
+
+
+        <section>
+        <h1>Realtime</h1>
+        <aside class="notes">
+        Enfim, vamos lá, realtime...
+        </aside>
+        </section>
+
+
+
+        <section>
+        <blockquote>
+          <p>The real-time web is a set of technologies and practices that enable users to receive information as soon as it is published by its authors<span class="fragment">, <strong>rather than requiring that they or their software check a source periodically for updates.</strong></span></p>
+        </blockquote>
+        <cite>— <a href="http://en.wikipedia.org/wiki/Real-time_web">Wikipedia</a></cite>
+        </section>
+
+
+
+        <section>
+        <ul class="inline">
+          <li>Chat</li>
+          <li class="fragment" data-fragment-index="1">,</li>
+          <li class="fragment" data-fragment-index="1">&nbsp;Newsfeed</li>
+          <li class="fragment" data-fragment-index="2">,</li>
+          <li class="fragment" data-fragment-index="2">&nbsp;Analytics</li>
+          <li class="fragment" data-fragment-index="3">,</li>
+          <li class="fragment" data-fragment-index="3">&nbsp;Jogos</li>
+          <li class="fragment" data-fragment-index="4">,</li>
+          <li class="fragment" data-fragment-index="4">&nbsp;App colaborativos</li>
+          <li class="fragment" data-fragment-index="5">&nbsp;...</li>
+        </ul>
+        <aside class="notes">
+        Estamos rodeados de aplicativos realtime
+        </aside>
+        </section>
+
+
+
+        <section>
+        <h3>HTTP <span class="fragment" data-fragment-index="1">:(</span></h3>
+        <aside class="notes">
+        Um dos primeiros problemas que se encontra para construir esse tipo de aplicação para web, HTTP.<br />
+        Transportar dados em tempo real com HTTP é um saco. <br />
+        Baixa latência, unidirecional, <br />
+        fazer coisas como ajax polling.<br />
+        </aside>
+        </section>
+
+
+
+        <section>
+        <section>
+        <h3>WebSockets</h3>
+        <aside class="notes">
+        bidirecional, sem polling<br />
+        WebSockets é quase perfeito.
+        </aside>
         </section>
         <section>
-        <h3> Meteor </h3>
+        <pre><code>var connection = new WebSocket('ws://example.org:12345/myapp');
+
+connection.onmessage = function(e){
+   var server_message = e.data;
+   console.log(server_message);
+}
+
+var message = {
+'name': 'Duke',
+'comment': 'I am at WeWebConf'
+};
+
+connection.send(JSON.stringify(message));
+</code></pre>
         <aside class="notes">
-        Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+        A API do WebSockets pura não é muito produtiva
         </aside>
+
+        </section>
+        </section>
+
+
+
+
+        <section>
+        <h3 class="highlight"> meteor.js </h3>
+<aside class="notes">
+        <ul>
+          <li>WebSockets</li>
+          <li>Puro javascript</li>
+          <li>Reactive</li>
+          <li>Cross Browser</li>
+        </ul>
+</aside>
+        </section>
+
+
+
+        <section>
+
+        <section>
+        <pre class="bash"><code>$ meteor create radio && cd radio</code></pre>
+        <pre class="bash"><code>$ meteor</code></pre>
+        <!--<pre class="bash"><code>$ meteor remove insecure</code></pre>
+        <pre class="bash"><code>$ npm install Meteorite -g</code></pre>
+        <pre class="bash"><code>$ mrt add bootstrap-updated</code></pre>
+        <pre class="bash"><code>$ mrt add font-awesome</code></pre>
+        <pre class="bash"><code>$ mrt add router</code></pre>-->
+        </section>
+
+
+        <section><pre class="javascript"><code>
+if (Meteor.isClient) {
+  Template.hello.greeting = function () {
+    return "Welcome to radio.";
+  };
+}
+
+if (Meteor.isServer) {
+  Meteor.startup(function () {
+    // code to run on server at startup
+  });
+}</code></pre>
+        </section>
+
+
+        <section>
+        <pre><code class="bash">lib/         # Sempre será carregado primeiro
+client/      # Carregado apenas no client
+client/lib/  # Sempre será carregado primeiro
+server/      # Carregado apenas no server
+server/lib/  # Sempre será carregado primeiro no server
+tests/       # Não são carregados</code></pre>
+
+        <a href="http://docs.meteor.com/#structuringyourapp">docs.meteor.com/#structuringyourapp</a>
+        </section>
+        </section>
+
+        <section>
+        <section>
+        <pre class="javascript"><code>Stations = new Meteor.Collection("stations");
+
+// server
+Meteor.publish("public_stations", function () {
+  "use strict";
+  return Stations.find({public: true});
+});
+
+// client
+Meteor.subscribe('public_stations');
+
+Template.index.public_stations = function(){
+  return Stations.find().fetch();
+};</pre></code>
+        </section>
+
+        <section>
+        <video src="videos/meteor-data.mp4" controls></video>
+        </section>
+        </section>
+
+
+        <section>
+          <section>
+            <h3>Meteor.methods/<br>Meteor.call</h3>
+            <h4>(RPC)</h4>
+            <aside class="notes">
+              RPC?
+            </aside>
+          </section>
+
+
+          <section><pre class="javascript"><code>Meteor.methods({
+  createStation: function (options) {
+    "use strict";
+
+    var station = {
+      owner: this.userId,
+      title: options.title,
+      description: options.description
+    };
+
+    return Stations.insert(station);
+  }
+});</code></pre>
+          </section>
+
+          <section>
+          <pre class="javascript"><code>Meteor.call('createStation', {
+              title: "Duke's Station",
+              description: "Lorem"
+            });</code></pre>
+          </section>
+
+
+          <section>
+
+          </section>
+        </section>
+
+        <section>
+          <video src="videos/meteor-accounts.mp4" controls></video>
+        </section>
+
+        <section class="links">
+        <h3>Links</h3>
+        <ul>
+          <li><a href="http://en.wikipedia.org/wiki/Real-time_web">en.wikipedia.org/wiki/Real-time_web</a></li>
+          <li><a href="http://www.html5rocks.com/pt/tutorials/websockets/basics">html5rocks.com/pt/tutorials/websockets/basics</a></li>
+          <li><a href="http://www.developerfusion.com/article/143158/an-introduction-to-websockets">developerfusion.com/article/143158/an-introduction-to-websockets</a></li>
+          <li><a href="http://dev.w3.org/html5/websockets">dev.w3.org/html5/websockets</a></li>
+          <li><a href="http://www.youtube.com/watch?v=vpp-8gkPWVE">youtube.com/watch?v=vpp-8gkPWVE</a></li>
+          <li><a href="http://stackoverflow.com/a/13039681/1034223">stackoverflow.com/a/13039681/1034223</a></li>
+          <li><a href="http://win.meteor.com">win.meteor.com</a></li>
+          <li><a href="http://venturebeat.com/2013/04/05/why-your-app-needs-to-be-real-time/">venturebeat.com/2013/04/05/why-your-app-needs-to-be-real-time</a></li>
+          <li><a href="http://webhooks.wordpress.com/2009/12/22/how-to-argue-for-webhooks/">webhooks.wordpress.com/2009/12/22/how-to-argue-for-webhooks/</a></li>
+          <li><a href="http://thomasdavis.github.io/2012/04/11/the-obligatory-refutation-of-rpc.html">thomasdavis.github.io/2012/04/11/the-obligatory-refutation-of-rpc.html</a></li>
+          <li><a href="http://yauh.de/articles/376/best-learning-resources-for-meteorjs">yauh.de/articles/376/best-learning-resources-for-meteorjs</a></li>
+          <li><a href="https://trello.com/b/hjBDflxp/meteor-roadmap">trello.com/b/hjBDflxp/meteor-roadmap</a></li>
+        </ul>
+        </section>
+
+        <section>
+        <h3>Obrigado!</h3>
         </section>
       </div>
     </div>
@@ -43,13 +281,13 @@
         center: true,
         theme: 'duke',
         transition: 'linear',
+        backgroundTransition: 'slide',
         dependencies: [
         { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
         { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
         { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
         { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
         { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-        { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
         { src: 'socket.io/socket.io.js', async: true },
         { src: 'plugin/notes-server/client.js', async: true }
         ]
