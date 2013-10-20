@@ -129,17 +129,21 @@ connection.send(JSON.stringify(message));
 
 
         <section>
-        <h3 class="highlight"> meteor.js </h3>
-<aside class="notes">
-        <ul>
-          <li>WebSockets</li>
-          <li>Puro javascript</li>
-          <li>Reactive</li>
-          <li>Cross Browser</li>
-        </ul>
-</aside>
+          <section>
+            <h3 class="highlight"> meteor.js </h3>
+            <aside class="notes">
+              * Pure JavaScript.
+              * Live page updates.
+              * Clean, powerful data synchronization.
+              * Latency compensation.
+              * Hot Code Pushes.
+              * Sensitive code runs in a privileged environment.
+              * Fully self-contained application bundles.
+              * Interoperability.
+              * Smart Packages.
+            </aside>
+          </section>
         </section>
-
 
 
         <section>
@@ -147,13 +151,10 @@ connection.send(JSON.stringify(message));
         <section>
         <pre class="bash"><code>$ meteor create radio && cd radio</code></pre>
         <pre class="bash"><code>$ meteor</code></pre>
-        <!--<pre class="bash"><code>$ meteor remove insecure</code></pre>
-        <pre class="bash"><code>$ npm install Meteorite -g</code></pre>
-        <pre class="bash"><code>$ mrt add bootstrap-updated</code></pre>
-        <pre class="bash"><code>$ mrt add font-awesome</code></pre>
-        <pre class="bash"><code>$ mrt add router</code></pre>-->
+        <aside class="notes">
+Alguns comandos e sua app está começada
+        </aside>
         </section>
-
 
         <section><pre class="javascript"><code>
 if (Meteor.isClient) {
@@ -167,6 +168,9 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }</code></pre>
+        <aside class="notes">
+Código base que o meteor cria, isClient apenas no browser o codigo é executado, isServer apenas no servidor
+</aside>
         </section>
 
 
@@ -179,8 +183,13 @@ server/lib/  # Sempre será carregado primeiro no server
 tests/       # Não são carregados</code></pre>
 
         <a href="http://docs.meteor.com/#structuringyourapp">docs.meteor.com/#structuringyourapp</a>
+        <aside class="notes">
+Criar uma aplicação em um arquivo só não é muito bom, o meteor tem uma forma de ler as pasta, você pode criar sua estrutura
+</aside>
+
         </section>
         </section>
+
 
         <section>
         <section>
@@ -198,10 +207,19 @@ Meteor.subscribe('public_stations');
 Template.index.public_stations = function(){
   return Stations.find().fetch();
 };</pre></code>
+        <aside class="notes">
+Criando canais, quem estiver subrescrito num determinado canal, recebe apenas dados que foi especificado nele
+</aside>
+
         </section>
 
+
         <section>
-        <video src="videos/meteor-data.mp4" controls></video>
+        <video src="/videos/meteor-data.mp4" controls></video>
+   <aside class="notes">
+https://vimeo.com/77317201
+            </aside>
+
         </section>
         </section>
 
@@ -211,10 +229,21 @@ Template.index.public_stations = function(){
             <h3>Meteor.methods/<br>Meteor.call</h3>
             <h4>(RPC)</h4>
             <aside class="notes">
-              RPC?
+              Sem o package insecure, é necessario usar esses metodos para se comunicar com o server
             </aside>
           </section>
 
+<section>
+<pre class="javascript"><code>--> {"jsonrpc": "2.0", "method": "subtract", "params": {"subtrahend": 23, "minuend": 42}, "id": 3}
+<-- {"jsonrpc": "2.0", "result": 19, "id": 3}
+--> {"jsonrpc": "2.0", "method": "subtract", "params": {"minuend": 42, "subtrahend": 23}, "id": 4}
+<-- {"jsonrpc": "2.0", "result": 19, "id": 4}
+</code></pre>
+<aside class="notes">
+Apenas um exemplo do JSON-RPC, o Meteor usa RPC para comunicação client <=> server
+</aside>
+
+</section>
 
           <section><pre class="javascript"><code>Meteor.methods({
   createStation: function (options) {
@@ -237,16 +266,40 @@ Template.index.public_stations = function(){
               description: "Lorem"
             });</code></pre>
           </section>
+        </section>
 
+
+        <section>
+          <section>
+            <h3>packages</h3>
+            <pre><code>$ meteor list</code></pre>
+            <aside class="notes">
+            Meteor trabalha com pacotes, para ver os pacotes pré-intalados, rode esse comando
+            </aside>
+
+          </section>
 
           <section>
+            <img alt="meteor packages" src="images/packages.png" />
+          </section>
 
+          <section>
+            <h2>atmosphere.meteor.com</h2>
+            <aside class="notes">
+              ~600             Pacotes da comunidade</aside>
+
+
+          </section>
+
+          <section>
+            <video src="/videos/meteor-accounts.mp4" controls></video>
+            <aside class="notes">
+            https://vimeo.com/76804543
+            </aside>
           </section>
         </section>
 
-        <section>
-          <video src="videos/meteor-accounts.mp4" controls></video>
-        </section>
+
 
         <section class="links">
         <h3>Links</h3>
@@ -255,6 +308,7 @@ Template.index.public_stations = function(){
           <li><a href="http://www.html5rocks.com/pt/tutorials/websockets/basics">html5rocks.com/pt/tutorials/websockets/basics</a></li>
           <li><a href="http://www.developerfusion.com/article/143158/an-introduction-to-websockets">developerfusion.com/article/143158/an-introduction-to-websockets</a></li>
           <li><a href="http://dev.w3.org/html5/websockets">dev.w3.org/html5/websockets</a></li>
+          <li><a href="http://en.wikipedia.org/wiki/JSON-RPC">en.wikipedia.org/wiki/JSON-RPC</a></li>
           <li><a href="http://www.youtube.com/watch?v=vpp-8gkPWVE">youtube.com/watch?v=vpp-8gkPWVE</a></li>
           <li><a href="http://stackoverflow.com/a/13039681/1034223">stackoverflow.com/a/13039681/1034223</a></li>
           <li><a href="http://win.meteor.com">win.meteor.com</a></li>
@@ -263,11 +317,19 @@ Template.index.public_stations = function(){
           <li><a href="http://thomasdavis.github.io/2012/04/11/the-obligatory-refutation-of-rpc.html">thomasdavis.github.io/2012/04/11/the-obligatory-refutation-of-rpc.html</a></li>
           <li><a href="http://yauh.de/articles/376/best-learning-resources-for-meteorjs">yauh.de/articles/376/best-learning-resources-for-meteorjs</a></li>
           <li><a href="https://trello.com/b/hjBDflxp/meteor-roadmap">trello.com/b/hjBDflxp/meteor-roadmap</a></li>
+          <li><a href="https://atmosphere.meteor.com/">atmosphere.meteor.com/</a>
         </ul>
         </section>
 
+
         <section>
         <h3>Obrigado!</h3>
+        <h2>duke@riseup.net</h2>
+        <aside class="notes">
+        Minhas considerações: Ainda não conheço nenhum case grande usando meteor.<br />
+        Suporte a SOMENTE MongoDB como banco de dados não é legal. <br />
+        Não utiliza o npm para servir os pacotes
+        </aside>
         </section>
       </div>
     </div>
