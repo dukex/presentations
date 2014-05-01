@@ -34,6 +34,7 @@ a {
 
   .reveal .author h3{
     font-size: 7em;
+    font-family: "Josefin Sans",'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .reveal .author ul{
@@ -119,6 +120,8 @@ a {
   font-size: 12em;
   text-align: left;
   color: #F7F7F7;
+  font-family: "Josefin Sans",'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-shadow: 1px 1px 1px #41A7A0;
 }
 
 .author ul {
