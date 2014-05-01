@@ -42,6 +42,10 @@ app.get("/notes/:socketId", function(req, res) {
 	});
 });
 
+app.get("/favicon.ico", function(req, res) {
+	res.writeHead(404, {'Content-Type': 'text/html'});
+})
+
 app.get("/:presentation_uri", function(req, res) {
 	res.writeHead(200, {'Content-Type': 'text/html'});
   req.session.presentation_uri = req.params.presentation_uri;
