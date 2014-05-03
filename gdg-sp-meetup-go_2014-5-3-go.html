@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> Go - Como criei uma aplicativo de podcast </title>
+    <meta name="description" content="TODO: description">
+    <meta name="author" content="Duke">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/duke.css" id="theme">
+    <link rel="stylesheet" href="lib/css/monokai_sublime.css">
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+        <h1>GO</h1>
+        <h2>Criando o uhuraapp.com em go</h2>
+        <aside class="notes">
+        Olá! Notas, como está, irá ajudar a entender melhor a aprensentação
+        </aside>
+        </section>
+
+
+
+        <section class="author" data-background="#41A7A0">
+        <h3> Duke </h3>
+        <ul>
+          <li><a href="http://dukex.github.io/">dukex.github.io</a></li>
+          <li><a href="http://github.com/dukex">github.com/dukex</a></li>
+          <li><a href="mailto:dukekhaos@gmail.com">dukekhaos at gmail</a></li>
+        </ul>
+        <aside class="notes">
+        Onde me encontrar. Qualquer coisa, mande um email ;)
+        </aside>
+        </section>
+
+
+
+        <section>
+        <h1>GO</h1>
+        <aside class="notes">
+        Enfim, vamos lá, golang...
+        </aside>
+        </section>
+
+
+
+        <section>
+          <section>
+            <h3>Uhura App?</h3>
+            <aside class="notes">
+              Administrador de assinaturas de podcast online. Por que não usar
+              go para isso?
+            </aside>
+          </section>
+
+          <section>
+            <a href="https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798">https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798</a>
+            <img alt="bayesian code" src="images/bayesian_code.png" />
+            <aside class="notes">
+              Mas meu primeiro código em go foi esse na lib bayesian
+              ref: https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798
+            </aside>
+          </section>
+
+          <section>
+            <img alt="charles" src="images/charles.png" />
+            <aside class="notes">
+             A lib bayesian gerou minha primeira lib, ainda não acabada e
+             privada, que é um serviço de classificação de conteudo em go
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Uhura App!</h3>
+            <h4>Administrador online de assinaturas de podcast.</h4>
+            <aside class="notes">
+              Voltando...
+            </aside>
+          </section>
+
+          <section>
+            <img alt="charles" src="images/uhura-1.png" />
+            <aside class="notes">
+            </aside>
+          </section>
+
+          <section>
+            <img alt="charles" src="images/uhura-2.png" />
+            <br />
+            <a href="http://uhuraapp.com">uhuraapp.com</a>
+            <aside class="notes">
+            </aside>
+          </section>
+
+          <section>
+          <pre class="bash"><code>$ go get github.com/go-martini/martini</code></pre>
+            <pre class="go"><code>package main
+
+import "github.com/go-martini/martini"
+
+func main() {
+  m := martini.Classic()
+  m.Get("/", func() string {
+    return "Hello world!"
+  })
+  m.Run()
+}</code></pre>
+          </section>
+
+          <section>
+            <img alt="charles" src="images/uhura-3.png" />
+            <br />
+            <a href="http://beta.uhuraapp.com">beta.uhuraapp.com</a>
+            <aside class="notes">
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section class="agenda">
+            <ol>
+              <li>Parser de RSS</li>
+              <li class="fragment">Persistir os dados</li>
+              <li class="fragment">Web server</li>
+              <li class="fragment">Autenticação</li>
+              <li class="fragment">Apresentar informações</li>
+            </ol>
+          </section>
+        </section>
+
+        <section>
+          <section class="agenda" >
+            <ol>
+              <li class="current">Parser de RSS</li>
+              <li>Persistir os dados</li>
+              <li>Web server</li>
+              <li>Autenticação</li>
+              <li>Apresentar informações</li>
+            </ol>
+          </section>
+         <section>
+            <img src="images/go-pkg-rss.png" />
+            <br />
+            <a href="https://github.com/jteeuwen/go-pkg-rss">github.com/jteeuwen/go-pkg-rss</a>
+            <aside class="notes">
+            </aside>
+          </section>
+
+          <section>
+
+          <pre class="go"><code>func chanHandler(f *rss.Feed, c []*rss.Channel) {
+}
+
+func itemHandler(f *rss.Feed, ch *rss.Channel, i []*rss.Item) {
+}</code></pre>
+            <pre class="go"><code>feed := rss.New(timeout, true, chanHandler, itemHandler)
+feed.Fetch(feedUrl, nil)</code></pre>
+
+          </section>
+
+          <section>
+            <img src="images/rss-extention-issue.png" />
+            <a href="https://github.com/jteeuwen/go-pkg-rss/issues/28">github.com/jteeuwen/go-pkg-rss/issues/28</a>
+          </section>
+
+          <section>
+            <img src="images/rss-extention-pull-request.png" />
+            <a href="https://github.com/jteeuwen/go-pkg-rss/issues/32">github.com/jteeuwen/go-pkg-rss/issues/32</a>
+          </section>
+          <section>
+<pre class="go"><code>if i := itemdata.Extensions[itunesExt]; i != nil {
+  if i["summary"] != nil {
+    itemdata.Description = i["summary"][0].Value
+  } else if i["subtitle"] != nil {
+    itemdata.Description = i["subtitle"][0].Value
+  }
+
+  if i["duration"] != nil {
+    duration = i["duration"][0].Value
+  }
+}</code></pre>
+          <a href="https://github.com/dukex/uhura/blob/version-3/core/fetcher.go#L157-L167">github.com/dukex/uhura/blob/version-3/core/fetcher.go#L157-L167</a>
+          </section>
+        </section>
+
+        <section>
+          <section class="agenda" >
+            <ol>
+              <li class="done">Parser de RSS</li>
+              <li class="current">Persistir os dados</li>
+              <li>Web server</li>
+              <li>Autenticação</li>
+              <li>Apresentar informações</li>
+            </ol>
+          </section>
+          <section>
+          <h3>Heroku <span class="fragment">-> Postgres</span></h3>
+          </section>
+
+          <section>
+            <img src="images/gorm.png" />
+            <a href="https://github.com/jinzhu/gorm">github.com/jinzhu/gorm</a>
+          </section>
+          <section><pre class="go"><code>type Channel struct {
+  Id            int64
+  Title         string `sql:"not null;unique"`
+  Description   string
+  ImageUrl      string
+  Copyright     string
+  LastBuildDate string
+  Url           string `sql:"not null;unique"`
+  CreatedAt     time.Time
+  UpdatedAt     time.Time
+  DeletedAt     time.Time
+}</code></pre></section>
+
+          <section><pre class="go"><code>import (
+  "os"
+  "github.com/jinzhu/gorm"
+  pq "github.com/lib/pq"
+)
+
+var database gorm.DB
+
+func init() {
+  databaseUrl, _ := pq.ParseURL(os.Getenv("DATABASE_URL"))
+  database, _ = gorm.Open("postgres", databaseUrl)
+  database.LogMode(os.Getenv("DEBUG") == "true")
+  database.AutoMigrate(Channel{})
+}</code></pre>
+          </section>
+          <section><pre class="go"><code>channel := Channel{
+  Title: "Meu podcast",
+  Url:   "http://url.com",
+}
+
+database.Save(&channel)
+</code></pre>
+<pre class="fragment go"><code>var channel Channel
+
+database.Where("title = ?", "Meu podcast").First(&channel)
+</code></pre>
+          </section>
+
+          <section>
+            <img src="images/gorm.png" />
+            <a href="https://github.com/jinzhu/gorm">github.com/jinzhu/gorm</a>
+          </section>
+        </section>
+                  <section>
+       <section class="agenda" >
+            <ol>
+              <li class="done">Parser de RSS</li>
+              <li class="done">Persistir os dados</li>
+              <li class="current">Web server</li>
+              <li>Autenticação</li>
+              <li>Apresentar informações</li>
+            </ol>
+          </section>
+          <section>
+            <img src="images/martini.png" />
+            <br />
+            <a href="https://github.com/go-martini/martini">github.com/go-martini/martini</a>
+          </section>
+
+          <section>
+            <img src="images/mux.png" />
+            <br />
+            <a href="http://www.gorillatoolkit.org/pkg/mux#installation">gorillatoolkit.org/pkg/mux</a>
+          </section>
+
+          <section><pre class="go"><code>  r := mux.NewRouter()
+
+  r.HandleFunc("/enter", EnterHandler)
+  r.HandleFunc("/login", LoginHandler)
+  r.HandleFunc("/password", core.ChangePassword).Methods("POST")
+  // API
+  apiRouter := r.PathPrefix("/api").Subrouter()
+  apiRouter.StrictSlash(true)
+  apiRouter.HandleFunc("/subscriptions", getSubscriptions)
+  apiRouter.HandleFunc("/channels/{id}", getChannel)
+
+  http.Handle("/", r)
+  </code></pre>
+  <pre class="fragment"><code>func getChannel(w http.ResponseWriter, r *http.Request) {
+  var (
+    vars    = mux.Vars(r)
+    id      = vars["id"]
+  )
+  </code></pre>
+  <a href="https://github.com/dukex/uhura/blob/version-3/app.go#L257-L310">github.com/dukex/uhura/blob/version-3/app.go#L257-L310</a>
+        </section>
+
+          <section>
+            <img src="images/mux.png" />
+            <br />
+            <a href="http://www.gorillatoolkit.org/pkg/mux#installation">gorillatoolkit.org/pkg/mux</a>
+          </section>
+
+          <section><pre class="go"><code>  m := martini.Classic()
+  m.Use(render.Renderer())
+
+  m.Get("/api", func(r render.Render) {
+    r.JSON(200, map[string]interface{}{"hello": "world"})
+  })</code></pre>
+  <div  class="fragment">
+  <pre class="go"><code>func ResponseJSON(w http.ResponseWriter, code int, data interface{}) {
+  var result []byte
+  var err error
+  result, err = json.Marshal(data)
+
+  if err != nil {
+    http.Error(w, err.Error(), 500)
+    return
+  }
+
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(code)
+  w.Write(result)
+}</code></pre>
+<a href="https://github.com/dukex/uhura/blob/version-3/core/helper/response.go">github.com/dukex/uhura/blob/version-3/core/helper/response.go</a>
+</div>
+          </section>
+        </section>
+
+        <section>
+          <section class="agenda">
+            <ol>
+              <li class="done">Parser de RSS</li>
+              <li class="done">Persistir os dados</li>
+              <li class="done">Web server</li>
+              <li class="current">Autenticação</li>
+              <li>Apresentar informações</li>
+            </ol>
+          </section>
+
+          <section><pre class="go"><code>import "code.google.com/p/goauth2/oauth"
+
+var config oauth.Config
+
+const profileInfoURL = "https://www.googleapis.com/oauth2/v1/
+                                                  userinfo?alt=json"
+ config := &oauth.Config{
+    ClientId:     os.Getenv("GOOGLE_CLIENT_ID"),
+    ClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
+    RedirectURL:  os.Getenv("GOOGLE_CALLBACK_URL"),
+    Scope:        "https://www.googleapis.com/auth/userinfo.email",
+    AuthURL:      "https://accounts.google.com/o/oauth2/auth",
+    TokenURL:     "https://accounts.google.com/o/oauth2/token",
+  }
+
+</code></pre>
+          </section>
+
+          <section><pre class="go"><code>  func(w http.ResponseWriter, r *http.Request) string {
+      url := config.AuthCodeURL("")
+      http.Redirect(w, r, url, http.StatusFound)
+  })
+</code></pre><pre class="go fragment"><code>  func(w http.ResponseWriter, r *http.Request) string {
+    code := r.FormValue("code")
+    t := &oauth.Transport{Config: config}
+    t.Exchange(code)
+    responseAuth, _ := t.Client().Get(profileInfoURL)
+    defer responseAuth.Body.Close()
+
+    core.CreateAndLoginUser(r, w, responseAuth)
+
+    return "<script>window.close();</script>"
+  })</code></pre>
+          </section>
+
+          <section>
+            <img src="images/login2.png" />
+            <a href="https://github.com/dukex/login2">github.com/dukex/login2</a>
+          </section>
+
+          <section><h3>Config</h3><pre class="go"><code>var l *login2.Builder
+l = login2.NewBuilder()</code></pre>
+<pre class="go fragment"><code>provider := &login2.Provider{
+  RedirectURL: os.Getenv("GOOGLE_CALLBACK_URL"),
+  AuthURL:     "https://accounts.google.com/o/oauth2/auth",
+  TokenURL:    "https://accounts.google.com/o/oauth2/token",
+  Name:        "google",
+  Key:         os.Getenv("GOOGLE_CLIENT_ID"),
+  Secret:      os.Getenv("GOOGLE_CLIENT_SECRET"),
+  Scope:       "https://www.googleapis.com/auth/userinfo.email",
+  UserInfoURL: "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+}
+
+l.NewProvider(provider)</code></pre>
+          </section>
+
+          <section>
+          <h3>Callbacks</h3>
+            <pre class="go"><code>l.UserSetupFn = func(provider string,
+                     user *auth.User,
+                     r *http.Response) (int64, error)  { }
+
+l.UserCreateFn = func(email string,
+                      password string,
+                      r *http.Request) (int64, error) { }
+
+l.UserIdByEmail = func(email string) (int64, error) { }
+
+l.UserPasswordByEmail = func(email string) (string, error) { }
+
+l.UserResetPasswordFn = func(token string, email string) { }</code></pre>
+          </section>
+
+          <section>
+          <h3>HTTP Handler</h3>
+          <pre class="go"><code>r.HandleFunc("/auth/google", l.OAuthAuthorize('google'))</code></pre>
+          <pre class="go fragment"><code>r.HandleFunc("/auth/callback/google", l.OAuthLogin('google'))</code></pre>
+          <pre class="go fragment"><code>r.HandleFunc("/users/sign_up", l.SignUp)</code></pre>
+          <pre class="go fragment"><code>r.HandleFunc("/users/sign_in", l.SignIn)</code></pre>
+          <pre class="go fragment"><code>r.HandleFunc("/users/sign_out", l.SignOut)</code></pre>
+          <pre class="go fragment"><code>r.HandleFunc("/dashboard", l.Protected(DashboardHandle))</code></pre>
+          </section>
+
+          <section><pre class="go"><code>l.URLS = login2.URLS{
+  Redirect: "/dashbaord",
+  SignIn:    "/login",
+  SignUp:  "/register",
+  ResetPasswordSuccess: "/reset_password_success"
+}</code></pre>
+          </section>
+
+          <section>
+            <h3>beta.uhuraapp.com</h3>
+          </section>
+
+          <section>
+            <h3>github.com/dukex/<br />login2</h3>
+          </section>
+        </section>
+        <section>
+          <section class="agenda">
+            <ol>
+              <li class="done">Parser de RSS</li>
+              <li class="done">Persistir os dados</li>
+              <li class="done">Web server</li>
+              <li class="done">Autenticação</li>
+              <li class="current">Apresentar informações</li>
+            </ol>
+          </section>
+          <section>
+          <img src="images/emberjs.png" />
+          </section>
+          <section>
+            <pre class="javascript"><code>var App = Ember.Application.create({});
+
+App.ApplicationAdapter = DS.RESTAdapter.extend({
+  namespace: 'api'
+});</code></pre>
+          </section>
+          <section><pre class="go"><code>
+type Channel struct {
+    Id          int
+    Title       string
+}
+
+func main() {
+    chs := make([]Channel, 2)
+    chs[0] = Channel{Id: 1, Title: "First"}
+    chs[1] = Channel{Id: 2, Title: "Second"}
+    s...
+    m.Get("/api/channels", func(r render.Render) {
+        r.JSON(200, chs)
+    })
+}</code></pre>
+            <a class="fragment" href="http://emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions">emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions</a>
+          </section>
+          <section>
+<pre class="go"><code>
+type Channel struct {
+    Id          int
+    Title       string
+}
+
+func main() {
+    chs := make([]Channel, 2)
+    chs[0] = Channel{Id: 1, Title: "First"}
+    chs[1] = Channel{Id: 2, Title: "Second"}
+    ...
+    m.Get("/api/channels", func(r render.Render) {
+        r.JSON(200, map[string]interface{}{"channels": chs})
+    })
+}</code></pre>
+            <a class="fragment" href="http://emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions">emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions</a>
+          </section>
+          <section><pre class="javascript"><code>{
+  channels: [
+    {
+      Id: 1,
+      Title: "First"
+    },
+    {
+      Id: 2,
+      Title: "Second"
+    }
+  ]
+}</code></pre>
+          </section>
+          <section><pre class="go"><code>type Channel struct {
+    Id          int    `json:"id"`
+    Title       string `json:"title"`
+}</code></pre>  <pre class="fragment javascript"><code>{
+  channels: [
+    {
+      id: 1,
+      title: "First"
+    },
+    {
+      id: 2,
+      title: "Second"
+    }
+  ]
+}</code></pre>
+          </section>
+          <section>
+            <pre class="javascript"><code>App.Channel = DS.Model.extend({
+  title: DS.attr('string'),
+});</code></pre>
+            <pre class="fragment javascript"><code>App.IndexRoute = Ember.Route.extend({
+  model: function() {
+    return App.Channel.find();
+  }
+});</code></pre>
+          </section>
+          <section>
+            <h3>emberjs.com/<br />guides</h3>
+          </section>
+        </section>
+<!--         <section class="links">
+          <h3>Links</h3>
+          <ul>
+            <li><a href="http://nerdyworm.com/blog/2013/05/21/building-an-app-with-ember-dot-js-and-go/">Building an App With Ember.js and Go - Part 1</a></li>
+            <li><a href="http://nerdyworm.com/blog/2013/05/24/building-an-app-with-ember-dot-js-and-go-part-2/">Building an App With Ember.js and Go - Part 2</a></li>
+            <li><a href="http://nerdyworm.com/blog/2013/05/27/building-an-app-with-ember-dot-js-and-go-part-3/">Building an App With Ember.js and Go - Part 3</a></li>
+
+             <li>http://golang.org/pkg/reflect/#StructTag</li>
+          </ul>
+        </section> -->
+
+        <section>
+          <section>
+          </section>
+          <section><h2>github.com/dukex/uhura/blob/version-3/core/mixpanel.go</h2></section>
+          <section><h2>github.com/dukex/github2trello</h2></section>
+          <section><h2>github.com/dukex/go-here</h2></section>
+          <section><h2>github.com/dukex/squeue</h2></section>
+          <section><h2>github.com/tools/godep</h2></section>
+          <section><h2>github.com/mattbaird/elastigo</h2></section>
+        </section>
+
+        <section>
+          <h3>Obrigado!</h3>
+          <h1>Duvidas?</h1>
+          <h2>dukekhaos at gmail</h2>
+          <aside class="notes">
+          Minhas considerações: Ainda não conheço nenhum case grande usando meteor.<br />
+          Suporte a SOMENTE MongoDB como banco de dados não é legal. <br />
+          Não utiliza o npm para servir os pacotes
+          </aside>
+        </section>
+      </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'duke',
+        transition: 'linear',
+        backgroundTransition: 'slide',
+        dependencies: [
+        { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        { src: 'socket.io/socket.io.js', async: true },
+        { src: 'plugin/notes-server/client.js', async: true }
+        ]
+      });
+    </script>
+  </body>
+</html>
