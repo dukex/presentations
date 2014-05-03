@@ -195,3 +195,23 @@ a {
 .reveal section.links ul{
   font-size: 1em;
 }
+
+
+.agenda ol{
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  padding: 0;
+  font-size: 4em;
+  line-height: 1.5;
+  overflow: hidden;
+  list-style-position: inside;
+}
+
+.agenda ol li.current {
+  color: #ED245D;
+}
+
+.agenda ol li.done {
+  text-decoration: line-through;
+}
