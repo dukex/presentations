@@ -59,8 +59,7 @@
           <section>
             <h3>Uhura App?</h3>
             <aside class="notes">
-              Administrador de assinaturas de podcast online. Por que não usar
-              go para isso?
+              Administrador online de assinaturas de podcast! Mas antes disso...
             </aside>
           </section>
 
@@ -68,16 +67,14 @@
             <a href="https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798">https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798</a>
             <img alt="bayesian code" src="images/bayesian_code.png" />
             <aside class="notes">
-              Mas meu primeiro código em go foi esse na lib bayesian
-              ref: https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798
+              Mas meu primeiro commit em go foi esse na lib bayesian
             </aside>
           </section>
 
           <section>
             <img alt="charles" src="images/charles.png" />
             <aside class="notes">
-             A lib bayesian gerou minha primeira lib, ainda não acabada e
-             privada, que é um serviço de classificação de conteudo em go
+             O commit anterior posibilitou a idéia da criação um serviço de classificação de conteudo em go
             </aside>
           </section>
         </section>
@@ -87,13 +84,14 @@
             <h3>Uhura App!</h3>
             <h4>Administrador online de assinaturas de podcast.</h4>
             <aside class="notes">
-              Voltando...
+              Voltando... É tipo o itunes só que online, e só tem podcast
             </aside>
           </section>
 
           <section>
             <img alt="charles" src="images/uhura-1.png" />
             <aside class="notes">
+            Minha primeira versão, funcionava de forma bem limitada
             </aside>
           </section>
 
@@ -102,6 +100,7 @@
             <br />
             <a href="http://uhuraapp.com">uhuraapp.com</a>
             <aside class="notes">
+            Segunda Versão, golang como api e emberjs como frontend
             </aside>
           </section>
 
@@ -118,6 +117,9 @@ func main() {
   })
   m.Run()
 }</code></pre>
+           <aside class="notes">
+            (para quem não conhece, esse é o martini)
+            </aside>
           </section>
 
           <section>
@@ -125,6 +127,7 @@ func main() {
             <br />
             <a href="http://beta.uhuraapp.com">beta.uhuraapp.com</a>
             <aside class="notes">
+              Terceira versão, features novas e refactor do código
             </aside>
           </section>
         </section>
@@ -142,7 +145,7 @@ func main() {
         </section>
 
         <section>
-          <section class="agenda" >
+          <section class="agenda">
             <ol>
               <li class="current">Parser de RSS</li>
               <li>Persistir os dados</li>
@@ -378,7 +381,7 @@ const profileInfoURL = "https://www.googleapis.com/oauth2/v1/
 
     core.CreateAndLoginUser(r, w, responseAuth)
 
-    return "<script>window.close();</script>"
+    return "&lt;script>window.close();&lt;/script&gt;"
   })</code></pre>
           </section>
 

@@ -48,6 +48,11 @@ a {
     font-weight: 200
   }
 
+  .reveal section img {
+    height: 80%;
+    width: auto;
+  }
+
 }
 .reveal h1,
 .reveal h2,
