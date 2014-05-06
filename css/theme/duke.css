@@ -10,50 +10,6 @@ a {
   color: #007777;
 }
 
-@media print {
-  .reveal section > h1,
-  .reveal section > h3 {
-    margin-top: 20% !important;
-  }
-
-  .reveal aside.notes{
-    display: block;
-    border: 1px solid #E6FC86;
-    position: relative;
-    width: 100%;
-    background: #F2FEBC;
-    font-size: 1.5em;
-    line-height: 1.5;
-    padding: 15px;
-    margin-top: 10px;
-  }
-
-  .reveal aside.notes.author{
-    display: none;
-  }
-
-  .reveal .author h3{
-    font-size: 7em;
-    font-family: "Josefin Sans",'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-
-  .reveal .author ul{
-    font-size: 2em;
-  }
-
-
-  body .reveal pre code{
-    font-size: 1.5em;
-    line-height: 1.3;
-    font-weight: 200
-  }
-
-  .reveal section img {
-    height: 80%;
-    width: auto;
-  }
-
-}
 .reveal h1,
 .reveal h2,
 .reveal h3,
@@ -219,4 +175,56 @@ a {
 
 .agenda ol li.done {
   text-decoration: line-through;
+}
+
+
+@media print {
+  .reveal section > h1 {
+    font-size: 5em
+  }
+  .reveal section > h1,
+  .reveal section > h3 {
+    margin-top: 20% !important;
+  }
+
+  .reveal aside.notes{
+    display: block;
+    border: 1px solid #E6FC86;
+    position: relative;
+    width: 100%;
+    background: #F2FEBC;
+    font-size: 1.5em;
+    line-height: 1.5;
+    padding: 15px;
+    margin-top: 10px;
+  }
+
+  .reveal aside.notes.author{
+    display: none;
+  }
+
+  .reveal .author h3{
+    font-size: 7em;
+    font-family: "Josefin Sans",'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  .reveal .author ul{
+    font-size: 2em;
+  }
+
+
+  body .reveal pre code{
+    font-size: 1.5em;
+    line-height: 1.3;
+    font-weight: 200
+  }
+
+  .reveal section img {
+    height: 80%;
+    width: auto;
+  }
+
+  .agenda ol {
+    font-size: 3em
+  }
 }

@@ -64,10 +64,9 @@
           </section>
 
           <section>
-            <a href="https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798">https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798</a>
             <img alt="bayesian code" src="images/bayesian_code.png" />
             <aside class="notes">
-              Mas meu primeiro commit em go foi esse na lib bayesian
+              6 meses atras meu primeiro commit em go na lib bayesian, sou um novato ainda nessas coisas
             </aside>
           </section>
 
@@ -91,16 +90,14 @@
           <section>
             <img alt="charles" src="images/uhura-1.png" />
             <aside class="notes">
-            Minha primeira versão, funcionava de forma bem limitada
+            A primeira versão, funcionava de forma beeeem limitada
             </aside>
           </section>
 
           <section>
             <img alt="charles" src="images/uhura-2.png" />
-            <br />
-            <a href="http://uhuraapp.com">uhuraapp.com</a>
             <aside class="notes">
-            Segunda Versão, golang como api e emberjs como frontend
+            Segunda Versão, golang como api apenas e emberjs como frontend
             </aside>
           </section>
 
@@ -118,16 +115,14 @@ func main() {
   m.Run()
 }</code></pre>
            <aside class="notes">
-            (para quem não conhece, esse é o martini)
+            (Usei o martini nessas versões, para quem não conhece, esse é o martini)
             </aside>
           </section>
 
           <section>
-            <img alt="charles" src="images/uhura-3.png" />
-            <br />
-            <a href="http://beta.uhuraapp.com">beta.uhuraapp.com</a>
+            <img alt="" src="images/uhura-3.png" />
             <aside class="notes">
-              Terceira versão, features novas e refactor do código
+              Terceira versão, features novas e refactor quase total do código
             </aside>
           </section>
         </section>
@@ -136,29 +131,36 @@ func main() {
           <section class="agenda">
             <ol>
               <li>Parser de RSS</li>
-              <li class="fragment">Persistir os dados</li>
+              <li class="fragment">Persistir dados</li>
               <li class="fragment">Web server</li>
               <li class="fragment">Autenticação</li>
               <li class="fragment">Apresentar informações</li>
             </ol>
-          </section>
+            <aside class="notes">
+              Agora sim! Minha agenda!
+            </aside>
+                      </section>
+
         </section>
 
         <section>
           <section class="agenda">
             <ol>
               <li class="current">Parser de RSS</li>
-              <li>Persistir os dados</li>
+              <li>Persistir dados</li>
               <li>Web server</li>
               <li>Autenticação</li>
               <li>Apresentar informações</li>
             </ol>
-          </section>
+
+                    <aside class="notes">
+              A primeira coisa que precisei foi um parser de RSS
+            </aside>
+             </section>
          <section>
             <img src="images/go-pkg-rss.png" />
-            <br />
-            <a href="https://github.com/jteeuwen/go-pkg-rss">github.com/jteeuwen/go-pkg-rss</a>
             <aside class="notes">
+            Extremamente facil de usar!
             </aside>
           </section>
 
@@ -171,18 +173,23 @@ func itemHandler(f *rss.Feed, ch *rss.Channel, i []*rss.Item) {
 }</code></pre>
             <pre class="go"><code>feed := rss.New(timeout, true, chanHandler, itemHandler)
 feed.Fetch(feedUrl, nil)</code></pre>
-
           </section>
 
           <section>
             <img src="images/rss-extention-issue.png" />
-            <a href="https://github.com/jteeuwen/go-pkg-rss/issues/28">github.com/jteeuwen/go-pkg-rss/issues/28</a>
+  <aside class="notes">
+           Só não tinha suporte a extentions, o que eu precisava
+            </aside>
           </section>
 
           <section>
             <img src="images/rss-extention-pull-request.png" />
-            <a href="https://github.com/jteeuwen/go-pkg-rss/issues/32">github.com/jteeuwen/go-pkg-rss/issues/32</a>
+
+               <aside class="notes">
+           :D
+            </aside>
           </section>
+
           <section>
 <pre class="go"><code>if i := itemdata.Extensions[itunesExt]; i != nil {
   if i["summary"] != nil {
@@ -195,7 +202,10 @@ feed.Fetch(feedUrl, nil)</code></pre>
     duration = i["duration"][0].Value
   }
 }</code></pre>
-          <a href="https://github.com/dukex/uhura/blob/version-3/core/fetcher.go#L157-L167">github.com/dukex/uhura/blob/version-3/core/fetcher.go#L157-L167</a>
+
+             <aside class="notes">
+           \o/
+            </aside>
           </section>
         </section>
 
@@ -208,14 +218,22 @@ feed.Fetch(feedUrl, nil)</code></pre>
               <li>Autenticação</li>
               <li>Apresentar informações</li>
             </ol>
+            <aside class="notes">
+           Como salvar meus dados?
+            </aside>
           </section>
           <section>
           <h3>Heroku <span class="fragment">-> Postgres</span></h3>
+             <aside class="notes">
+             (Estou usando heroku e postgres)
+              </aside>
           </section>
 
           <section>
             <img src="images/gorm.png" />
-            <a href="https://github.com/jinzhu/gorm">github.com/jinzhu/gorm</a>
+            <aside class="notes">
+           Realmente uma biblioteca fantastica
+            </aside>
           </section>
           <section><pre class="go"><code>type Channel struct {
   Id            int64
@@ -228,7 +246,9 @@ feed.Fetch(feedUrl, nil)</code></pre>
   CreatedAt     time.Time
   UpdatedAt     time.Time
   DeletedAt     time.Time
-}</code></pre></section>
+}</code></pre> <aside class="notes">
+          Criando meu model(mapeando tabela Channel)
+            </aside></section>
 
           <section><pre class="go"><code>import (
   "os"
@@ -244,6 +264,9 @@ func init() {
   database.LogMode(os.Getenv("DEBUG") == "true")
   database.AutoMigrate(Channel{})
 }</code></pre>
+<aside class="notes">
+          Configurando GORM na inicialização da app
+            </aside>
           </section>
           <section><pre class="go"><code>channel := Channel{
   Title: "Meu podcast",
@@ -256,11 +279,16 @@ database.Save(&channel)
 
 database.Where("title = ?", "Meu podcast").First(&channel)
 </code></pre>
+<aside class="notes">
+          Salvando e buscando dados
+            </aside>
           </section>
 
           <section>
             <img src="images/gorm.png" />
-            <a href="https://github.com/jinzhu/gorm">github.com/jinzhu/gorm</a>
+            <aside class="notes">
+          Tem muitas outras coisas lá!
+            </aside>
           </section>
         </section>
                   <section>
@@ -272,17 +300,22 @@ database.Where("title = ?", "Meu podcast").First(&channel)
               <li>Autenticação</li>
               <li>Apresentar informações</li>
             </ol>
+ <aside class="notes">
+          Vamos ao web server
+            </aside>
           </section>
           <section>
             <img src="images/martini.png" />
-            <br />
-            <a href="https://github.com/go-martini/martini">github.com/go-martini/martini</a>
+             <aside class="notes">
+          Como disse, usava o martini, recomendo ele fortemente!
+            </aside>
           </section>
 
           <section>
             <img src="images/mux.png" />
-            <br />
-            <a href="http://www.gorillatoolkit.org/pkg/mux#installation">gorillatoolkit.org/pkg/mux</a>
+            <aside class="notes">
+          Mudei para o mux apenas por curiosidade (mux não é tão magico)
+            </aside>
           </section>
 
           <section><pre class="go"><code>  r := mux.NewRouter()
@@ -304,13 +337,14 @@ database.Where("title = ?", "Meu podcast").First(&channel)
     id      = vars["id"]
   )
   </code></pre>
-  <a href="https://github.com/dukex/uhura/blob/version-3/app.go#L257-L310">github.com/dukex/uhura/blob/version-3/app.go#L257-L310</a>
+
         </section>
 
           <section>
             <img src="images/mux.png" />
-            <br />
-            <a href="http://www.gorillatoolkit.org/pkg/mux#installation">gorillatoolkit.org/pkg/mux</a>
+   <aside class="notes">
+          Simples, rapido e sem firulas.
+            </aside>
           </section>
 
           <section><pre class="go"><code>  m := martini.Classic()
@@ -334,8 +368,11 @@ database.Where("title = ?", "Meu podcast").First(&channel)
   w.WriteHeader(code)
   w.Write(result)
 }</code></pre>
-<a href="https://github.com/dukex/uhura/blob/version-3/core/helper/response.go">github.com/dukex/uhura/blob/version-3/core/helper/response.go</a>
+
 </div>
+  <aside class="notes">
+          O render.JSON to martini é interessante, mas não muito dificil de portar
+            </aside>
           </section>
         </section>
 
@@ -348,6 +385,9 @@ database.Where("title = ?", "Meu podcast").First(&channel)
               <li class="current">Autenticação</li>
               <li>Apresentar informações</li>
             </ol>
+<aside class="notes">
+         É quando o filho chora e a mãe não vê!
+            </aside>
           </section>
 
           <section><pre class="go"><code>import "code.google.com/p/goauth2/oauth"
@@ -366,6 +406,9 @@ const profileInfoURL = "https://www.googleapis.com/oauth2/v1/
   }
 
 </code></pre>
+<aside class="notes">
+         OAuth é simples, configura ali e aqui
+            </aside>
           </section>
 
           <section><pre class="go"><code>  func(w http.ResponseWriter, r *http.Request) string {
@@ -383,14 +426,19 @@ const profileInfoURL = "https://www.googleapis.com/oauth2/v1/
 
     return "&lt;script>window.close();&lt;/script&gt;"
   })</code></pre>
+  <aside class="notes">
+         Handle de autenticação e de callback, e tudo funciona
+            </aside>
           </section>
 
           <section>
             <img src="images/login2.png" />
-            <a href="https://github.com/dukex/login2">github.com/dukex/login2</a>
+              <aside class="notes">
+         O problema era email/password, login2 te ajuda nisso
+            </aside>
           </section>
 
-          <section><h3>Config</h3><pre class="go"><code>var l *login2.Builder
+          <section><h4>Config</h4><pre class="go"><code>var l *login2.Builder
 l = login2.NewBuilder()</code></pre>
 <pre class="go fragment"><code>provider := &login2.Provider{
   RedirectURL: os.Getenv("GOOGLE_CALLBACK_URL"),
@@ -404,10 +452,13 @@ l = login2.NewBuilder()</code></pre>
 }
 
 l.NewProvider(provider)</code></pre>
+ <aside class="notes">
+         Configura os providers oauth
+            </aside>
           </section>
 
           <section>
-          <h3>Callbacks</h3>
+          <h4>Callbacks</h4>
             <pre class="go"><code>l.UserSetupFn = func(provider string,
                      user *auth.User,
                      r *http.Response) (int64, error)  { }
@@ -421,16 +472,22 @@ l.UserIdByEmail = func(email string) (int64, error) { }
 l.UserPasswordByEmail = func(email string) (string, error) { }
 
 l.UserResetPasswordFn = func(token string, email string) { }</code></pre>
+ <aside class="notes">
+         Os callbacks
+            </aside>
           </section>
 
           <section>
-          <h3>HTTP Handler</h3>
+          <h4>HTTP Handler</h4>
           <pre class="go"><code>r.HandleFunc("/auth/google", l.OAuthAuthorize('google'))</code></pre>
           <pre class="go fragment"><code>r.HandleFunc("/auth/callback/google", l.OAuthLogin('google'))</code></pre>
           <pre class="go fragment"><code>r.HandleFunc("/users/sign_up", l.SignUp)</code></pre>
           <pre class="go fragment"><code>r.HandleFunc("/users/sign_in", l.SignIn)</code></pre>
           <pre class="go fragment"><code>r.HandleFunc("/users/sign_out", l.SignOut)</code></pre>
           <pre class="go fragment"><code>r.HandleFunc("/dashboard", l.Protected(DashboardHandle))</code></pre>
+           <aside class="notes">
+         Os handlers
+            </aside>
           </section>
 
           <section><pre class="go"><code>l.URLS = login2.URLS{
@@ -439,14 +496,20 @@ l.UserResetPasswordFn = func(token string, email string) { }</code></pre>
   SignUp:  "/register",
   ResetPasswordSuccess: "/reset_password_success"
 }</code></pre>
+<aside class="notes">
+         As URLS
+            </aside>
           </section>
 
           <section>
-            <h3>beta.uhuraapp.com</h3>
+            <h2>beta.uhuraapp.com</h2>
+            <aside class="notes">
+         Funciona! Login2 já está em produção no beta
+            </aside>
           </section>
 
           <section>
-            <h3>github.com/dukex/<br />login2</h3>
+            <h2>github.com/dukex/login2</h2>
           </section>
         </section>
         <section>
@@ -461,6 +524,9 @@ l.UserResetPasswordFn = func(token string, email string) { }</code></pre>
           </section>
           <section>
           <img src="images/emberjs.png" />
+                      <aside class="notes">
+                Sim, eu uso go com emberjs e não com angularjs :P
+            </aside>
           </section>
           <section>
             <pre class="javascript"><code>var App = Ember.Application.create({});
@@ -468,6 +534,9 @@ l.UserResetPasswordFn = func(token string, email string) { }</code></pre>
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   namespace: 'api'
 });</code></pre>
+ <aside class="notes">
+                Só configurar o RESTAdapter
+            </aside>
           </section>
           <section><pre class="go"><code>
 type Channel struct {
@@ -479,12 +548,11 @@ func main() {
     chs := make([]Channel, 2)
     chs[0] = Channel{Id: 1, Title: "First"}
     chs[1] = Channel{Id: 2, Title: "Second"}
-    s...
+    ...
     m.Get("/api/channels", func(r render.Render) {
         r.JSON(200, chs)
     })
 }</code></pre>
-            <a class="fragment" href="http://emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions">emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions</a>
           </section>
           <section>
 <pre class="go"><code>
@@ -502,7 +570,6 @@ func main() {
         r.JSON(200, map[string]interface{}{"channels": chs})
     })
 }</code></pre>
-            <a class="fragment" href="http://emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions">emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions</a>
           </section>
           <section><pre class="javascript"><code>{
   channels: [
@@ -544,22 +611,12 @@ func main() {
 });</code></pre>
           </section>
           <section>
-            <h3>emberjs.com/<br />guides</h3>
+            <h2>emberjs.com/guides</h2>
           </section>
         </section>
-<!--         <section class="links">
-          <h3>Links</h3>
-          <ul>
-            <li><a href="http://nerdyworm.com/blog/2013/05/21/building-an-app-with-ember-dot-js-and-go/">Building an App With Ember.js and Go - Part 1</a></li>
-            <li><a href="http://nerdyworm.com/blog/2013/05/24/building-an-app-with-ember-dot-js-and-go-part-2/">Building an App With Ember.js and Go - Part 2</a></li>
-            <li><a href="http://nerdyworm.com/blog/2013/05/27/building-an-app-with-ember-dot-js-and-go-part-3/">Building an App With Ember.js and Go - Part 3</a></li>
-
-             <li>http://golang.org/pkg/reflect/#StructTag</li>
-          </ul>
-        </section> -->
-
         <section>
           <section>
+          <h3>Projetos interessantes</h3>
           </section>
           <section><h2>github.com/dukex/uhura/blob/version-3/core/mixpanel.go</h2></section>
           <section><h2>github.com/dukex/github2trello</h2></section>
@@ -568,15 +625,34 @@ func main() {
           <section><h2>github.com/tools/godep</h2></section>
           <section><h2>github.com/mattbaird/elastigo</h2></section>
         </section>
-
+        <section class="links">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="http://uhuraapp.com">uhuraapp.com</a></li>
+            <li><a href="http://beta.uhuraapp.com">beta.uhuraapp.com</a></li>
+            <li><a href="https://github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798">github.com/dukex/bayesian/commit/484c130d3be433bb09d80b99c2db8195c9953798</a></li>
+            <li><a href="http://github.com/go-martini/martini">github.com/go-martini/martini</a></li>
+            <li><a href="https://github.com/jteeuwen/go-pkg-rss">github.com/jteeuwen/go-pkg-rss</a></li>
+            <li><a href="https://github.com/jteeuwen/go-pkg-rss/issues/28">github.com/jteeuwen/go-pkg-rss/issues/28</a></li>
+            <li><a href="https://github.com/jteeuwen/go-pkg-rss/issues/32">github.com/jteeuwen/go-pkg-rss/issues/32</a></li>
+            <li><a href="https://github.com/dukex/uhura/blob/version-3/core/fetcher.go#L157-L167">github.com/dukex/uhura/blob/version-3/core/fetcher.go#L157-L167</a></li>
+            <li><a href="https://github.com/jinzhu/gorm">github.com/jinzhu/gorm</a></li>
+            <li><a href="http://www.gorillatoolkit.org/pkg/mux#installation">gorillatoolkit.org/pkg/mux</a></li>
+            <li><a href="https://github.com/dukex/uhura/blob/version-3/app.go#L257-L310">github.com/dukex/uhura/blob/version-3/app.go#L257-L310</a></li>
+            <li><a href="https://github.com/dukex/uhura/blob/version-3/core/helper/response.go">github.com/dukex/uhura/blob/version-3/core/helper/response.go</a></li>
+            <li><a href="https://github.com/dukex/login2">github.com/dukex/login2</a></li>
+            <li><a class="fragment" href="http://emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions">emberjs.com/guides/models/the-rest-adapter/#toc_json-conventions</a></li>
+            <li><a href="http://nerdyworm.com/blog/2013/05/21/building-an-app-with-ember-dot-js-and-go/">Building an App With Ember.js and Go - Part 1</a></li>
+            <li><a href="http://nerdyworm.com/blog/2013/05/24/building-an-app-with-ember-dot-js-and-go-part-2/">Building an App With Ember.js and Go - Part 2</a></li>
+            <li><a href="http://nerdyworm.com/blog/2013/05/27/building-an-app-with-ember-dot-js-and-go-part-3/">Building an App With Ember.js and Go - Part 3</a></li>
+             <li><a href="http://golang.org/pkg/reflect/#StructTag">http://golang.org/pkg/reflect/#StructTag</a></li>
+          </ul>
+        </section>
         <section>
-          <h3>Obrigado!</h3>
-          <h1>Duvidas?</h1>
+          <h1>Obrigado!</h1>
           <h2>dukekhaos at gmail</h2>
           <aside class="notes">
-          Minhas considerações: Ainda não conheço nenhum case grande usando meteor.<br />
-          Suporte a SOMENTE MongoDB como banco de dados não é legal. <br />
-          Não utiliza o npm para servir os pacotes
+          Minhas considerações: Use go!
           </aside>
         </section>
       </div>
