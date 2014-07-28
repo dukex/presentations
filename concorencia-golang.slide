@@ -1,0 +1,93 @@
+Concorrência em Go
+Introdução
+28 Jul 2014
+Tags: channels, concurrence
+
+Duke
+
+dukekhaos@gmail.com
+http://dukex.github.io
+@_dukex
+
+* Goroutines e Channels
+
+* Goroutines
+
+Uma goroutine é uma função que é capaz de executar de forma concorrente com outras funções.
+
+.play -numbers examples/goroutines-1.go /START OMIT/,/END OMIT/
+
+* Channels
+
+Channels prover uma forma das goroutines se comunicarem umas com as outras e sincronizar sua execução
+
+.play -numbers examples/channels-1.go /START OMIT/,/END OMIT/
+
+* bidirecional/unidirecional
+
+Um channel é uma conexão bidirecional ou unidirecional entre duas goroutines
+
+.play -numbers examples/channels-2.go /START OMIT/,/END OMIT/
+
+.link http://www.confreaks.com/videos/3422-gophercon2014-a-channel-compendium
+
+* for...range loop
+
+Um channel pode ser usado sobre um for...range loop
+
+.play -numbers examples/channels-3.go /START OMIT/,/END OMIT/
+
+.link http://pivotallabs.com/channels-in-go-beyond-the-basics/
+
+* select
+
+O select permite enviar e receber informação de multiplos canais ao mesmo tempo
+
+.code -numbers examples/select-1.go /START OMIT/,/END OMIT/
+
+* For/Select
+
+.code -numbers examples/select-2.go /START OMIT/,/END OMIT/
+
+* For/Select
+
+.play -numbers examples/for-select-1.go /START OMIT/,/END OMIT/
+
+.link https://gobyexample.com/select
+
+* confreaks.com/videos/3422-gophercon2014-a-channel-compendium
+
+* Exemplo
+
+* Quero morar em X lugar
+
+.image images/moraraqui-1.png 500 _
+
+* http handler
+
+.code -numbers examples/moraraqui-http-1.go /START OMIT/,/END OMIT/
+
+* Bot Manager
+
+.code -numbers examples/moraraqui-crawler-2.go /START OMIT/,/END OMIT/
+
+* Bot
+
+.code -numbers examples/moraraqui-bot-3.go /START OMIT/,/END OMIT/
+
+* Um pouco de javascript...
+
+.image images/moraraqui-4.gif 500 _
+
+
+* Links
+.link https://gobyexample.com/channels
+.link http://www.golang-book.com/10/index.htm
+.link http://pivotallabs.com/a-beginning-look-at-concurrency-in-go/
+.link http://pivotallabs.com/channels-in-go-beyond-the-basics/
+.link http://blog.golang.org/concurrency-is-not-parallelism
+.link http://www.confreaks.com/videos/3422-gophercon2014-a-channel-compendium
+.link http://blog.golang.org/go-concurrency-patterns-timing-out-and
+.link http://blog.golang.org/pipelines
+.link http://verboselogging.com/2011/06/18/idiomatic-go-channel-timeout
+
