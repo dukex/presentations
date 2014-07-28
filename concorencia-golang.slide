@@ -89,5 +89,4 @@ O select permite enviar e receber informação de multiplos canais ao mesmo temp
 .link http://www.confreaks.com/videos/3422-gophercon2014-a-channel-compendium
 .link http://blog.golang.org/go-concurrency-patterns-timing-out-and
 .link http://blog.golang.org/pipelines
-.link http://verboselogging.com/2011/06/18/idiomatic-go-channel-timeout
-
+.link http://talks.golang.org/2012/concurrency.slide
