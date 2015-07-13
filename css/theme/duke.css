@@ -1,5 +1,5 @@
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+html body {
+  font-family: 'Josefin Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: #F7F7F7;
   color: #222;
   background-color: #f7f7f7;
@@ -23,7 +23,7 @@ a {
 }
 
 .reveal h1 {
-  color: #ED245D;
+  color: #ED2431;
   font-size: 9em;
   font-weight: 700;
 }
@@ -49,7 +49,7 @@ a {
 .reveal blockquote{
   margin: 0 auto;
   border: none;
-  border-left: 10px solid #ED245D;
+  border-left: 10px solid #ED2431;
   padding: 0 0 0 30px;
   font-style: italic;
   background: none;
@@ -64,7 +64,7 @@ a {
   display: block;
   padding: 30px 0 0 30px;
   margin: 0 auto;
-  border-left: 10px solid #ED245D;
+  border-left: 10px solid #ED2431;
   font-style: italic;
   text-align: left;
   width: 80%;
@@ -109,6 +109,10 @@ a {
   overflow: hidden
 }
 
+.reveal ul.list {
+  display: inline;
+}
+
 .reveal ul.inline li {
   list-style: none;
   font-weight: 700;
@@ -120,7 +124,12 @@ a {
 }
 
 .highlight{
-  border-bottom: 1px solid #ED245D;
+  border-bottom: 1px solid #ED2431;
+}
+
+html body .focus.focus {
+  color: #ed2431;
+  font-weight: 900;
 }
 
 .reveal pre code{
@@ -134,19 +143,19 @@ a {
 }
 
 .reveal .controls div.navigate-left {
-  border-right-color: #ED245D;
+  border-right-color: #ED2431;
 }
 
 .reveal .controls div.navigate-right {
-  border-left-color: #ED245D;
+  border-left-color: #ED2431;
 }
 
 .reveal .controls div.navigate-up {
-  border-bottom-color: #ED245D;
+  border-bottom-color: #ED2431;
 }
 
 .reveal .controls div.navigate-down {
-  border-top-color: #ED245D;
+  border-top-color: #ED2431;
 }
 
 .reveal .controls div.enabled {
@@ -157,6 +166,13 @@ a {
   font-size: 1em;
 }
 
+.reveal section.links.medium ul{
+  font-size: 1.5em;
+}
+
+.reveal section.links.medium ul li{
+  margin-bottom: 1em;
+}
 
 .agenda ol{
   display: block;
@@ -170,7 +186,7 @@ a {
 }
 
 .agenda ol li.current {
-  color: #ED245D;
+  color: #ED2431;
 }
 
 .agenda ol li.done {
